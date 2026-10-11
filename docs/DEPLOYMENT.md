@@ -29,8 +29,8 @@ Create **two Vercel projects** from the same Git repository:
 | | Backend (API) | Frontend (web) |
 |---|---|---|
 | Root Directory | `backend` | `frontend` |
-| Framework | Express (auto-detected from `src/index.ts`) | Next.js |
-| Install | default (`npm install` at workspace root; keep “include files outside root directory” ON) | default |
+| Framework | Other: `backend/vercel.json` bundles the API with esbuild and serves it from `api/index.mjs` | Next.js |
+| Install | handled by `vercel.json` (`npm install` at the workspace root; keep “include files outside root directory” ON) | default |
 | Env vars | `DATABASE_URL`, `ALLOWED_ORIGINS=https://<web domain>`, `DB_POOL_MAX=2` | `BACKEND_URL=https://<api project domain>`, `NEXT_PUBLIC_SITE_URL=https://<web domain>` |
 
 `BACKEND_URL` is compiled into the Next.js rewrites at build time: change it, then redeploy the frontend.
@@ -70,3 +70,19 @@ docker compose run --rm api node dist/migrate.mjs
 ## Environment variables
 
 See [.env.example](../.env.example). Secrets live only in environment variables.
+
+## Current live deployment (Vercel team "Shuttle")
+
+| | URL |
+|---|---|
+| Website + portal | https://moonstar-web-five.vercel.app |
+| API | https://moonstar-api.vercel.app (browser never calls it directly) |
+
+**Until `DATABASE_URL` is set on the `moonstar-api` project the website pages render, but the portal, the enquiry form and the live catalogue return "service unavailable".** To activate:
+
+```bash
+# 1. add the Supabase pooler URL to the API project, 2. migrate/seed from your machine, 3. redeploy the API
+vercel env add DATABASE_URL production        # run inside the linked backend project, paste the Supabase string
+DATABASE_URL=... SEED_ADMIN_EMAIL=... SEED_ADMIN_PASSWORD=... npm run db:migrate
+vercel deploy --prod
+```
