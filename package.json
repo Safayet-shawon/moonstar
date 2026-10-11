@@ -1,0 +1,32 @@
+{
+  "name": "moonstar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Moon Star Power & Technology - corporate website, employee portal and quotation platform",
+  "workspaces": [
+    "packages/*",
+    "backend",
+    "frontend"
+  ],
+  "engines": {
+    "node": ">=20.9"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "dev:backend": "npm run dev -w backend",
+    "dev:frontend": "npm run dev -w frontend",
+    "build": "npm run build -w backend && npm run build -w frontend",
+    "start": "concurrently -n api,web \"npm run start -w backend\" \"npm run start -w frontend\"",
+    "test": "npm run test -w backend",
+    "typecheck": "npm run typecheck -w backend && npm run typecheck -w frontend",
+    "lint": "npm run lint -w frontend",
+    "db:migrate": "npm run db:migrate -w backend",
+    "db:seed:demo": "npm run db:seed:demo -w backend",
+    "lighthouse": "node scripts/lighthouse.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "lighthouse": "^13.5.0",
+    "puppeteer-core": "^25.13.0"
+  }
+}

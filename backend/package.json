@@ -1,0 +1,40 @@
+{
+  "name": "@moonstar/backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Moon Star API: auth, RBAC, projects, catalogue & pricing, quotations, PDF, reports (Express + PostgreSQL/Supabase)",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "node scripts/build.mjs",
+    "start": "node dist/server.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "db:migrate:prod": "node dist/migrate.mjs",
+    "db:seed:demo": "cross-env SEED_DEMO=1 tsx scripts/migrate.ts"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@moonstar/shared": "*",
+    "bcryptjs": "^3.0.3",
+    "compression": "^1.8.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "pdf-lib": "^1.17.1",
+    "pg": "^8.23.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
+    "@types/compression": "^1.7.5",
+    "@types/express": "^5.0.0",
+    "@types/node": "^24",
+    "@types/pg": "^8.15.0",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.25.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5",
+    "vitest": "^5.0.3"
+  }
+}

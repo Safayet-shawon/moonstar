@@ -1,0 +1,36 @@
+# Production-style stack: nginx load balancer -> 2x web + 2x api -> Postgres (Supabase by default).
+#   docker compose up --build -d
+#   docker compose run --rm api node dist/migrate.mjs      # schema + roles + first admin
+# For a fully local database add:  --profile localdb  and set DATABASE_URL=postgresql://moonstar:moonstar@db:5432/moonstar
+services:
+  api:
+    build: { context: ., dockerfile: backend/Dockerfile }
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL (Supabase pooler connection string)}
+      DB_POOL_MAX: ${DB_POOL_MAX:-5}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost}
+      SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL:-}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-}
+      INSECURE_COOKIES: ${INSECURE_COOKIES:-0}   # set 1 only when testing over plain http
+    deploy: { replicas: 2 }
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args: { BACKEND_URL: "http://api:4000", NEXT_PUBLIC_SITE_URL: "${NEXT_PUBLIC_SITE_URL:-http://localhost}" }
+    depends_on: [api]
+    deploy: { replicas: 2 }
+    restart: unless-stopped
+  nginx:
+    image: nginx:1.27-alpine
+    ports: ["80:80"]
+    volumes: ["./nginx/nginx.conf:/etc/nginx/nginx.conf:ro"]
+    depends_on: [web, api]
+    restart: unless-stopped
+  db:
+    profiles: [localdb]
+    image: postgres:16-alpine
+    environment: { POSTGRES_USER: moonstar, POSTGRES_PASSWORD: moonstar, POSTGRES_DB: moonstar }
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+volumes: { pgdata: {} }
