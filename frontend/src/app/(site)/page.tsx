@@ -9,6 +9,8 @@ import { SectionHead, SolutionCard } from "@/components/site/parts";
 import { SOLUTIONS, PROCESS } from "@/content/solutions";
 import { PROJECTS } from "@/content/projects";
 import { FAQS } from "@/content/faqs";
+import { CERTIFICATIONS } from "@/content/certifications";
+import CertCard from "@/components/site/CertCard";
 
 const WHY = [
   { icon: Cog, title: "Engineering expertise", text: "Led by a technical team. Equipment is selected from documented load calculations, not rules of thumb." },
@@ -55,6 +57,17 @@ export default function Home() {
             <p className="text-sm text-navy-800"><b>Government-listed manufacturer.</b> Approved electrical substation manufacturer, Serial No. 94, Ministry of Power, Energy &amp; Mineral Resources.</p>
           </div>
           <Link href="/certifications" className="text-sm font-bold text-ember-600 hover:underline">View approvals →</Link>
+        </div>
+      </section>
+
+      {/* CERTIFICATIONS */}
+      <section className="mx-auto max-w-7xl px-4 pt-20">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <SectionHead eyebrow="Trust & certifications" title="Approvals and certifications" text="Government approval and standards certification information. Certificate scans are added as soon as the originals are verified." />
+          <ButtonLink href="/certifications" variant="fabric-light">All certifications</ButtonLink>
+        </div>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {CERTIFICATIONS.map((c) => <CertCard key={c.name} c={c} compact />)}
         </div>
       </section>
 

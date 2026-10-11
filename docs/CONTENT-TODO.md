@@ -1,9 +1,6 @@
 # Content that needs real company input (nothing below is invented)
 
-1. **Certifications.** Only the Ministry of Power, Energy & Mineral Resources approval (Serial No. 94) is published, as
-   stated on moonstarpower.com. The company also mentions **BSTI** and **ELB** certificates: send scans plus issuing authority,
-   number, scope and validity, then add them to `frontend/src/content/certifications.ts` with a `documentUrl`
-   (put PDFs/images in `frontend/public/certs/`). Until verified they are deliberately not shown.
+1. **Certifications (placeholders are live).** The home page and /certifications show three cards: Ministry approval (Serial No. 94, from your site), BSTI and ELB. BSTI/ELB are **dummy placeholders** with "To be provided" for number/validity and a "Dummy · scan pending" tag. When the client sends the scans: put the image/PDF in `frontend/public/certs/`, then edit `frontend/src/content/certifications.ts` (set `status: "verified"`, `image`, `documentUrl`, `number`, `validity`, `authority`). The card then shows the image and a working "View document" button.
 2. **Logo.** The header uses a text wordmark with a bolt icon. The existing logo file on the old site is a 310×60 low-resolution image
    on a black background. Provide a vector/high-resolution logo and replace `Logo()` in `frontend/src/components/site/Header.tsx`
    (and the PDF header in `backend/src/lib/pdf.ts`).

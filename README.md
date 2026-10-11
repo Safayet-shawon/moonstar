@@ -33,7 +33,7 @@ npm run dev                     # api :4000 + web :3000
 Open http://localhost:3000 (website) and http://localhost:3000/portal (staff).
 With `db:seed:demo`, local-only demo logins are created (password `Moonstar@Demo2026`):
 `employee@…`, `approver@…`, `pricing@…`, `viewer@moonstar.local`. To also create a Super Admin run
-`SEED_ADMIN_EMAIL=you@example.com SEED_ADMIN_PASSWORD='…' npm run db:migrate`.
+put `SEED_ADMIN_EMAIL`, `SEED_ADMIN_NAME` and `SEED_ADMIN_PASSWORD` in `backend/.env` (git-ignored; read automatically) and run `npm run db:migrate`.
 **Demo data uses placeholder prices. Never seed it in production.**
 
 Without `DATABASE_URL` the API uses an embedded Postgres that refuses to start in production.

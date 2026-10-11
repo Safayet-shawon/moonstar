@@ -1,6 +1,9 @@
 import { createApp } from "./app";
 import { getDb } from "./db/index";
 
+// load backend/.env if present (never committed)
+try { process.loadEnvFile(); } catch { /* no .env file */ }
+
 const port = Number(process.env.PORT ?? 4000);
 const app = createApp();
 

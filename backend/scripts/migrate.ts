@@ -1,6 +1,9 @@
 import { getDb, runMigrations } from "../src/db/index";
 import { seedBase, seedDemo, ensureUser } from "../src/db/seed";
 
+// load backend/.env if present (never committed)
+try { process.loadEnvFile(); } catch { /* no .env file */ }
+
 async function main() {
   const d = await getDb();
   const applied = await runMigrations(d);
