@@ -62,7 +62,8 @@ export function createApp() {
     try {
       await query("SELECT 1");
       res.json({ ok: true, db: hasDatabaseUrl() ? "postgres" : "embedded" });
-    } catch {
+    } catch (e) {
+      console.error("[health] database unavailable:", e instanceof Error ? e.message : e);
       res.status(503).json({ ok: false });
     }
   });

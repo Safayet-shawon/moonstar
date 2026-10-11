@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description:
     "Electrical substations, transformers, HT/LT panels, PFI panels, diesel generators, solar and lift solutions across Bangladesh. Supply, installation, testing, commissioning and 24/7 maintenance.",
   openGraph: { type: "website", siteName: "Moon Star Power & Technology", locale: "en_BD", images: ["/img/hero-transformer.webp"] },
-  robots: { index: true, follow: true },
+  robots: process.env.NEXT_PUBLIC_DEMO_MODE === "1" ? { index: false, follow: false } : { index: true, follow: true },
 };
 
 export const viewport: Viewport = { themeColor: "#0b1f3a", width: "device-width", initialScale: 1 };

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Loader2, Lock, Zap } from "lucide-react";
@@ -10,6 +10,13 @@ export default function Login() {
   const router = useRouter();
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const demo = process.env.NEXT_PUBLIC_DEMO_MODE === "1";
+
+  // Sandbox deployment: sign in automatically (no password), so a shared sample link opens straight into the portal.
+  useEffect(() => {
+    if (!demo) return;
+    api.post("/auth/demo-login").then(() => { router.replace("/portal"); router.refresh(); }).catch((e) => setError(errMsg(e)));
+  }, [demo, router]);
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -28,6 +35,7 @@ export default function Login() {
 
   return (
     <main className="grid min-h-screen place-items-center bg-navy-950 px-4">
+      {demo && !error && <p role="status" className="absolute top-6 text-sm font-semibold text-steel-300">Opening the demo portal…</p>}
       <div className="grid-lines pointer-events-none absolute inset-0" />
       <div className="relative w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl">
         <div className="mb-6 flex items-center gap-3">

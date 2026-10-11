@@ -73,6 +73,7 @@ export default function Shell({ user, permissions, children }: { user: { name: s
       )}
 
       <div className="flex min-w-0 flex-1 flex-col">
+        {process.env.NEXT_PUBLIC_DEMO_MODE === "1" && <p className="bg-amber-400 px-4 py-1.5 text-center text-xs font-bold text-navy-950">DEMO MODE: sample data only, shared and reset periodically. Nothing here is real.</p>}
         <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-steel-200 bg-white/90 px-4 backdrop-blur">
           <button className="grid size-10 place-items-center rounded-lg lg:hidden" aria-label="Open menu" onClick={() => setOpen(true)}><Menu /></button>
           <Link href="/" target="_blank" className="hidden text-xs font-semibold text-steel-500 hover:text-ember-600 lg:block">View public website ↗</Link>

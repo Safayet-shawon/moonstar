@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
 import { route, ip } from "../http";
-import { HttpError, SESSION_COOKIE, login, logout, need } from "../lib/auth";
+import { HttpError, SESSION_COOKIE, demoLogin, isDemoMode, login, logout, need } from "../lib/auth";
 import { changeOwnPassword } from "../lib/admin";
 import { getSetting, type CompanySettings } from "../lib/server";
 
@@ -17,6 +17,14 @@ export function authRoutes() {
     res.cookie(SESSION_COOKIE, out.token, { httpOnly: true, sameSite: "lax", secure: secure(), path: "/", maxAge: out.maxAge * 1000 });
     res.json({ ok: true });
   }));
+
+  // Sandbox only: 404 on every real deployment.
+  r.post("/demo-login", route(async (req, res) => {
+    const out = await demoLogin(ip(req), req.headers["user-agent"]);
+    res.cookie(SESSION_COOKIE, out.token, { httpOnly: true, sameSite: "lax", secure: secure(), path: "/", maxAge: out.maxAge * 1000 });
+    res.json({ ok: true });
+  }));
+  r.get("/mode", (_req, res) => void res.json({ demo: isDemoMode() }));
 
   r.post("/logout", route(async (_req, res) => {
     await logout(res.locals.token);

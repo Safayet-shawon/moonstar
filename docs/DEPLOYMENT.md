@@ -86,3 +86,22 @@ vercel env add DATABASE_URL production        # run inside the linked backend pr
 DATABASE_URL=... SEED_ADMIN_EMAIL=... SEED_ADMIN_PASSWORD=... npm run db:migrate
 vercel deploy --prod
 ```
+
+## Demo / sample deployment (passwordless, fake data)
+
+For showing the portal to a client without sharing a password there is a **separate sandbox deployment**. It must never share a
+database or Vercel project with the real system.
+
+| | URL |
+|---|---|
+| Demo portal (opens already signed in) | https://moonstar-demo-web.vercel.app/portal |
+| Demo API | https://moonstar-demo-api.vercel.app |
+
+How it works: the API runs with `DEMO_MODE=1 ALLOW_EMBEDDED_DB=1 PGLITE_DIR=memory://` (no `DATABASE_URL`), seeds the placeholder
+`[DEMO]` catalogue on cold start, and exposes `POST /api/auth/demo-login`, which signs in as the seeded *Demo Admin*. The frontend is
+built with `NEXT_PUBLIC_DEMO_MODE=1`, so `/portal/login` signs in automatically (sign-out signs straight back in), a yellow DEMO banner is
+shown, and search engines are told not to index it. On a normal deployment the endpoint returns 404 (covered by tests) and the API refuses
+to start with `DEMO_MODE=1` plus a real `DATABASE_URL`.
+
+Limits: data lives in each serverless instance's memory, so it resets on cold start (the first load after idle takes ~10 s) and can differ between
+instances. It is for demonstration only.

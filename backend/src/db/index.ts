@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 /**
  * Database access layer.
@@ -73,6 +74,7 @@ async function createPg(): Promise<Driver> {
 }
 
 async function createLite(): Promise<Driver> {
+  if (process.env.DEMO_MODE === "1" && process.env.DATABASE_URL) throw new Error("DEMO_MODE must never be combined with a real DATABASE_URL");
   if (process.env.NODE_ENV === "production" && !process.env.ALLOW_EMBEDDED_DB) {
     throw new Error("DATABASE_URL is not set. Configure your Supabase connection string (see README).");
   }
@@ -116,6 +118,13 @@ async function createLite(): Promise<Driver> {
     },
   };
   await runMigrations(driver);
+  if (process.env.DEMO_MODE === "1") {
+    // Sandbox deployment: fake data only. Never enabled together with DATABASE_URL.
+    const { seedBase, seedDemo, ensureUser } = await import("./seed");
+    await seedBase(driver);
+    await seedDemo(driver);
+    await ensureUser(driver, { email: "demo@moonstar.local", name: "Demo Admin", password: (await import("node:crypto")).randomBytes(18).toString("base64url") + "aA1", role: "super_admin", designation: "Demo administrator" });
+  }
   return driver;
 }
 
@@ -132,7 +141,12 @@ export async function tx<T>(fn: (c: Queryable) => Promise<T>): Promise<T> {
   return (await getDb()).tx(fn);
 }
 
-export const MIGRATIONS_DIR = path.join(process.cwd(), "db", "migrations");
+const here = path.dirname(fileURLToPath(import.meta.url));
+/** Works from src/db (dev/tests), dist/ (bundle) and when the working directory differs (serverless). */
+export const MIGRATIONS_DIR =
+  [process.env.MIGRATIONS_DIR, path.join(here, "..", "..", "db", "migrations"), path.join(here, "..", "db", "migrations"), path.join(process.cwd(), "db", "migrations"), path.join(process.cwd(), "backend", "db", "migrations")]
+    .filter((p): p is string => Boolean(p))
+    .find((p) => fs.existsSync(p)) ?? path.join(process.cwd(), "db", "migrations");
 
 export async function runMigrations(d: Queryable, dir = MIGRATIONS_DIR): Promise<string[]> {
   await d.query(`CREATE TABLE IF NOT EXISTS _migrations (name TEXT PRIMARY KEY, applied_at TIMESTAMPTZ NOT NULL DEFAULT now())`);

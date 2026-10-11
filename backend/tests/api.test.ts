@@ -196,3 +196,25 @@ describe("public inquiry form", () => {
     expect((await api("/api/public/inquiry", { method: "POST", body: { name: "x", phone: "abc", message: "short" } })).status).toBe(400);
   });
 });
+
+describe("demo mode (sandbox deployments only)", () => {
+  it("the passwordless endpoint does not exist on a normal deployment", async () => {
+    delete process.env.DEMO_MODE;
+    const r = await api("/api/auth/demo-login", { method: "POST", body: {} });
+    expect(r.status).toBe(404);
+    expect(((await api("/api/auth/mode")).data as { demo: boolean }).demo).toBe(false);
+  });
+  it("signs in without a password only when DEMO_MODE=1", async () => {
+    await ensureUser(await getDb(), { email: "demo@moonstar.local", name: "Demo Admin", password: "Passw0rd!long", role: "super_admin" });
+    process.env.DEMO_MODE = "1";
+    try {
+      const r = await api("/api/auth/demo-login", { method: "POST", body: {} });
+      expect(r.status).toBe(200);
+      const cookie = (r.headers.get("set-cookie") ?? "").split(";")[0];
+      expect((await api("/api/portal/dashboard", { cookie })).status).toBe(200);
+    } finally {
+      delete process.env.DEMO_MODE;
+    }
+    expect((await api("/api/auth/demo-login", { method: "POST", body: {} })).status).toBe(404);
+  });
+});

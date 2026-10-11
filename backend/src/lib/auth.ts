@@ -122,6 +122,25 @@ export async function login(email: string, password: string, ip: string, ua?: st
   return { ok: true as const, token, maxAge: SESSION_HOURS * 3600 };
 }
 
+export const isDemoMode = () => process.env.DEMO_MODE === "1";
+
+/**
+ * Passwordless sign-in for a SANDBOX deployment only (DEMO_MODE=1, fake data, no real database).
+ * Signs in as the seeded demo administrator. The route that calls this returns 404 unless DEMO_MODE=1.
+ */
+export async function demoLogin(ip: string, ua?: string) {
+  if (!isDemoMode()) throw new HttpError(404, "Not found");
+  const u = (await query("SELECT id FROM users WHERE lower(email) = 'demo@moonstar.local' AND active = TRUE")).rows[0];
+  if (!u) throw new HttpError(503, "Demo data is still loading. Please retry in a moment.");
+  const token = crypto.randomBytes(32).toString("base64url");
+  await query(
+    `INSERT INTO sessions(token_hash, user_id, expires_at, ip, user_agent) VALUES ($1,$2, now() + ($3 || ' hours')::interval, $4, $5)`,
+    [sha256(token), u.id, String(SESSION_HOURS), ip, ua?.slice(0, 250) ?? null],
+  );
+  await query("DELETE FROM sessions WHERE expires_at < now()");
+  return { token, maxAge: SESSION_HOURS * 3600 };
+}
+
 export async function logout(token?: string) {
   if (token) await query("DELETE FROM sessions WHERE token_hash = $1", [sha256(token)]);
 }
