@@ -13,7 +13,6 @@ export default function LogoCoin({ className = "" }: { className?: string }) {
     const el = host.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!window.matchMedia("(min-width: 1024px)").matches) return;
     let stop = () => {};
     let cancelled = false;
 
@@ -22,7 +21,7 @@ export default function LogoCoin({ className = "" }: { className?: string }) {
       if (cancelled || !host.current) return;
       const w = el.clientWidth, h = el.clientHeight;
       const renderer = new T.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "low-power" });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 768 ? 1.75 : 2));
       renderer.setSize(w, h);
       renderer.outputColorSpace = T.SRGBColorSpace;
       el.appendChild(renderer.domElement);
@@ -55,7 +54,7 @@ export default function LogoCoin({ className = "" }: { className?: string }) {
 
       let raf = 0, visible = true, running = true;
       const mouse = { x: 0, y: 0 };
-      const onMove = (e: PointerEvent) => { mouse.x = (e.clientX / window.innerWidth - 0.5) * 2; mouse.y = (e.clientY / window.innerHeight - 0.5) * 2; };
+      const onMove = (e: PointerEvent) => { mouse.x = (e.clientX / window.innerWidth - 0.5) * 2; mouse.y = (e.clientY / window.innerHeight - 0.5) * 2; }; // finger drag works too
       window.addEventListener("pointermove", onMove, { passive: true });
       const clock = new T.Clock();
       const tick = () => {

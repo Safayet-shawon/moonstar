@@ -31,10 +31,10 @@ export default function Motion() {
       // ---- smooth scroll (mouse devices only; touch keeps native momentum) ----
       let lenis: import("lenis").default | undefined;
       let tick: ((t: number) => void) | undefined;
-      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      {
         const { default: Lenis } = await import("lenis");
         if (cancelled) return;
-        const l = new Lenis({ lerp: 0.09, smoothWheel: true });
+        const l = new Lenis({ lerp: 0.09, smoothWheel: true, syncTouch: false });
         lenis = l;
         l.on("scroll", ScrollTrigger.update);
         tick = (t: number) => l.raf(t * 1000);
@@ -78,15 +78,15 @@ export default function Motion() {
         quick(el).y((e.clientY - (r.top + r.height / 2)) * 0.35);
       };
       const onLeave = () => magnets.forEach((_, m) => { quick(m).x(0); quick(m).y(0); });
-      if (window.matchMedia("(hover: hover)").matches) {
-        document.addEventListener("pointermove", onMove, { passive: true });
-        document.addEventListener("pointerleave", onLeave);
-      }
+      document.addEventListener("pointermove", onMove, { passive: true }); // mouse hover; on touch it follows the finger while pressed
+      document.addEventListener("pointerup", onLeave);
+      document.addEventListener("pointerleave", onLeave);
       ScrollTrigger.refresh();
 
       cleanup = () => {
         document.removeEventListener("pointermove", onMove);
         document.removeEventListener("pointerleave", onLeave);
+        document.removeEventListener("pointerup", onLeave);
         magnets.forEach((_, m) => gsap.set(m, { clearProps: "x,y" }));
         ctx.revert();
         if (tick) gsap.ticker.remove(tick);

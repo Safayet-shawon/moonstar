@@ -29,30 +29,30 @@ export default function Home() {
       {/* HERO */}
       <section className="relative isolate overflow-hidden bg-forest-950 text-white">
         <Image src="/img/hero-transformer.webp" alt="Engineer inspecting a power transformer in an outdoor substation" fill priority sizes="100vw" quality={70} className="-z-30 scale-110 object-cover" data-parallax />
-        <div className="absolute inset-0 -z-20 bg-linear-to-r from-forest-950 via-forest-950/85 to-forest-900/35" />
+        <div className="absolute inset-0 -z-20 bg-linear-to-b from-forest-950/90 via-forest-950/80 to-forest-900/60 lg:bg-linear-to-r lg:from-forest-950 lg:via-forest-950/85 lg:to-forest-900/35" />
         <div className="grid-lines absolute inset-0 -z-10 opacity-60" />
         <HeroScene />
-        <LogoCoin className="absolute right-[7%] top-[44%] hidden h-[400px] w-[400px] -translate-y-1/2 lg:block" />
-        <div className="glass float-slow absolute bottom-6 right-[9%] hidden w-72 rounded-2xl p-4 text-sm text-white lg:block" data-float>
-          <p className="text-[11px] font-bold uppercase tracking-widest text-brand-400">24/7 support line</p>
-          <a href={COMPANY.phoneHref} className="mt-1 block font-display text-xl font-extrabold hover:text-brand-400">{COMPANY.phone}</a>
-          <p className="mt-2 text-xs text-steel-200">Supply · installation · testing · commissioning · maintenance</p>
-        </div>
-        <div className="relative mx-auto flex min-h-[620px] max-w-7xl flex-col justify-center px-4 py-24 sm:min-h-[680px]">
-          <p className="glass mb-4 inline-flex w-fit items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold text-steel-100" data-intro>
+        <div className="relative mx-auto flex max-w-7xl flex-col justify-center px-4 py-10 sm:min-h-[680px] sm:py-24 lg:min-h-[680px]">
+          <LogoCoin className="relative mx-auto -mb-2 h-[220px] w-[220px] sm:h-[280px] sm:w-[280px] lg:absolute lg:right-[2%] lg:top-1/2 lg:mb-0 lg:h-[400px] lg:w-[400px] lg:-translate-y-1/2" />
+          <p className="glass mb-4 inline-flex w-fit items-center gap-2 rounded-2xl px-3.5 sm:rounded-full py-1.5 text-xs font-semibold text-steel-100" data-intro>
             <ShieldCheck className="size-4 text-brand-400" />
             Approved electrical substation manufacturer · Serial No. 94 · Ministry of Power, Energy &amp; Mineral Resources
           </p>
-          <h1 className="max-w-3xl text-4xl font-extrabold leading-[1.05] sm:text-6xl" data-intro>
+          <h1 className="max-w-3xl text-[2.35rem] font-extrabold leading-[1.05] sm:text-6xl" data-intro>
             Powering Buildings.<br />
             <span className="brand-text">Engineering Reliable Energy.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-steel-200" data-intro>
             Integrated power infrastructure and electrical engineering solutions for residential, commercial and industrial projects across Bangladesh.
           </p>
-          <div className="mt-9 flex flex-wrap gap-3" data-intro>
+          <div className="mt-7 flex flex-wrap gap-3 sm:mt-9" data-intro>
             <ButtonLink href="/contact#quote" variant="clay" size="lg" className="btn-pulse" data-magnetic>Request a Quotation <ArrowRight className="size-4" /></ButtonLink>
             <ButtonLink href="/solutions" variant="glass" size="lg" data-magnetic>Explore Our Solutions</ButtonLink>
+          </div>
+          <div className="glass float-slow mt-8 w-full max-w-sm rounded-2xl p-4 text-sm text-white lg:absolute lg:bottom-6 lg:right-[3%] lg:mt-0 lg:w-72" data-float>
+            <p className="text-[11px] font-bold uppercase tracking-widest text-brand-400">24/7 support line</p>
+            <a href={COMPANY.phoneHref} className="mt-1 block font-display text-xl font-extrabold hover:text-brand-400">{COMPANY.phone}</a>
+            <p className="mt-2 text-xs text-steel-200">Supply · installation · testing · commissioning · maintenance</p>
           </div>
         </div>
       </section>

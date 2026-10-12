@@ -14,13 +14,13 @@ export default function HeroScene() {
     const el = host.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!window.matchMedia("(min-width: 900px)").matches) return;
     let stop = () => {};
     let cancelled = false;
 
     const start = async () => {
       const THREE = await import("three");
       if (cancelled || !host.current) return;
+      const narrow = el.clientWidth < 700;
       const w = el.clientWidth;
       const h = el.clientHeight;
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "low-power" });
@@ -29,9 +29,9 @@ export default function HeroScene() {
       el.appendChild(renderer.domElement);
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 100);
-      camera.position.set(0, 0, 16);
+      camera.position.set(0, 0, narrow ? 17 : 16);
 
-      const COLS = 11, ROWS = 6, GAP = 2.3;
+      const COLS = narrow ? 7 : 11, ROWS = narrow ? 9 : 6, GAP = narrow ? 1.9 : 2.3;
       const pts: THREE.Vector3[] = [];
       for (let i = 0; i < COLS; i++)
         for (let j = 0; j < ROWS; j++)

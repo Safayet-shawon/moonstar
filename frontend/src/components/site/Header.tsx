@@ -47,15 +47,15 @@ export default function Header() {
   return (
     <header className={`sticky top-0 z-50 border-b transition-all duration-300 ${scrolled ? "glass-light border-white/60" : "border-transparent bg-white"}`}>
       <div id="scroll-progress" aria-hidden />
-      <div className="hidden bg-forest-900 text-[12.5px] text-steel-300 md:block">
+      <div className="bg-forest-900 text-[12.5px] text-steel-300">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-1.5">
-          <span>{COMPANY.hours} · 24/7 support line</span>
+          <span className="hidden sm:inline">{COMPANY.hours} · 24/7 support line</span><span className="sm:hidden">24/7 support</span>
           <a href={COMPANY.phoneHref} className="flex items-center gap-1.5 font-semibold text-white hover:text-brand-400">
             <Phone className="size-3.5" /> {COMPANY.phone}
           </a>
         </div>
       </div>
-      <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between gap-4 px-4">
+      <div className="mx-auto flex h-[64px] max-w-7xl items-center justify-between gap-2 px-3 sm:h-[68px] sm:gap-4 sm:px-4">
         <Logo />
         <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
           {NAV.map((n) => (
@@ -65,7 +65,7 @@ export default function Header() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <ButtonLink href="/contact#quote" variant="clay" size="sm" className="hidden sm:inline-flex" data-magnetic>Request a Quotation</ButtonLink>
+          <ButtonLink href="/contact#quote" variant="clay" size="sm" data-magnetic><span className="hidden sm:inline">Request a Quotation</span><span className="sm:hidden">Get Quote</span></ButtonLink>
           <Link href="/portal" className="hidden text-xs font-semibold text-steel-500 hover:text-forest-900 xl:block">Staff login</Link>
           <button className="grid size-10 place-items-center rounded-lg text-forest-900 lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
             {open ? <X /> : <Menu />}

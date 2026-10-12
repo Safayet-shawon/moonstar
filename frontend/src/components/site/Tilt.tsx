@@ -15,7 +15,7 @@ export default function Tilt({ children, className = "", max = 9 }: { children: 
   const sry = useSpring(ry, { stiffness: 180, damping: 18, mass: 0.6 });
   const z = useTransform(srx, (v) => Math.abs(v) * 0.6);
 
-  const allowed = () => typeof window !== "undefined" && window.matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").matches;
+  const allowed = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
   const move = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!allowed() || !ref.current) return;
     const r = ref.current.getBoundingClientRect();
@@ -31,7 +31,7 @@ export default function Tilt({ children, className = "", max = 9 }: { children: 
   return (
     <LazyMotion features={domAnimation}>
       <div className="tilt-scene h-full">
-        <m.div ref={ref} onPointerMove={move} onPointerLeave={leave} style={{ rotateX: srx, rotateY: sry, translateZ: z }} className={`tilt relative h-full ${className}`}>
+        <m.div ref={ref} onPointerDown={move} onPointerMove={move} onPointerLeave={leave} onPointerUp={leave} onPointerCancel={leave} style={{ rotateX: srx, rotateY: sry, translateZ: z }} className={`tilt relative h-full touch-pan-y ${className}`}>
           {children}
           <span className="tilt-glare" aria-hidden />
         </m.div>

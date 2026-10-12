@@ -224,7 +224,7 @@ textarea.field { min-height: 5.5rem; resize: vertical; }
     box-shadow: 0 14px 44px -14px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.28);
   }
   .glass-light {
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(16px) saturate(170%);
     -webkit-backdrop-filter: blur(16px) saturate(170%);
     border: 1px solid rgba(255, 255, 255, 0.75);
@@ -290,3 +290,11 @@ html.lenis, html.lenis body { height: auto; }
   .btn-pulse::after, .float-slow, .brand-text, .page-in { animation: none; }
   .btn-clay::before, .btn-glass::before, .btn-clay-navy::before { transition: none; }
 }
+
+/* Touch screens have no hover: replay the button light-sweep automatically so buttons feel alive, and sweep on tap */
+@media (hover: none) and (prefers-reduced-motion: no-preference) {
+  .btn-clay::before, .btn-glass::before, .btn-clay-navy::before { animation: autosweep 5s ease-in-out 1.5s infinite; }
+  .btn:active::before { background-position: -60% 0; }
+}
+@keyframes autosweep { 0%, 70% { background-position: 160% 0; } 100% { background-position: -60% 0; } }
+html, body { overflow-x: clip; }
