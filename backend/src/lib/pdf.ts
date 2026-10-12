@@ -6,11 +6,12 @@ import { assertAccess } from "./quotes";
 import { getSetting, audit, type CompanySettings } from "./server";
 import { formatBDT, toPaisa } from "@moonstar/shared";
 import { fmtDate } from "@moonstar/shared";
+import { readAsset } from "./assets";
 
-const NAVY = rgb(0.043, 0.122, 0.227);
-const ORANGE = rgb(0.91, 0.45, 0.1);
+const NAVY = rgb(0.024, 0.165, 0.086); // deep forest green (brand dark)
+const ORANGE = rgb(0.004, 0.584, 0.255); // logo green #019541
 const GREY = rgb(0.4, 0.45, 0.5);
-const LIGHT = rgb(0.94, 0.95, 0.97);
+const LIGHT = rgb(0.94, 0.975, 0.955);
 const W = 595.28, H = 841.89, M = 40;
 
 /** Standard PDF fonts are WinAnsi-only: transliterate anything else. */
@@ -92,9 +93,20 @@ export async function buildQuotationPdf(data: {
   newPage();
   page.drawRectangle({ x: 0, y: H - 78, width: W, height: 78, color: NAVY });
   page.drawRectangle({ x: 0, y: H - 82, width: W, height: 4, color: ORANGE });
-  text(data.company.name, M, H - 38, { size: 18, f: bold, color: rgb(1, 1, 1) });
-  text(data.company.tagline || "", M, H - 54, { size: 9, color: rgb(0.8, 0.85, 0.92) });
-  text(`${data.company.phone}  |  ${data.company.email}`, M, H - 68, { size: 8, color: rgb(0.8, 0.85, 0.92) });
+  let tx = M;
+  const logoBytes = readAsset("logo.png");
+  if (logoBytes) {
+    try {
+      const logo = await pdf.embedPng(logoBytes);
+      page.drawImage(logo, { x: M, y: H - 70, width: 56, height: 56 });
+      tx = M + 70;
+    } catch {
+      /* logo is optional */
+    }
+  }
+  text(data.company.name, tx, H - 38, { size: 18, f: bold, color: rgb(1, 1, 1) });
+  text(data.company.tagline || "", tx, H - 54, { size: 9, color: rgb(0.8, 0.92, 0.85) });
+  text(`${data.company.phone}  |  ${data.company.email}`, tx, H - 68, { size: 8, color: rgb(0.8, 0.92, 0.85) });
   text("QUOTATION", W - M, H - 40, { size: 16, f: bold, color: rgb(1, 1, 1), right: true });
   text(`No. ${data.number}  (V${data.version})`, W - M, H - 56, { size: 10, color: rgb(1, 1, 1), right: true });
   y = H - 104;

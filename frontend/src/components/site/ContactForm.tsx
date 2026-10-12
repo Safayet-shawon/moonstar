@@ -28,7 +28,7 @@ export default function ContactForm({ defaultService }: { defaultService?: strin
     return (
       <div role="status" className="flex flex-col items-center gap-3 rounded-xl border border-green-200 bg-green-50 p-10 text-center">
         <CheckCircle2 className="size-10 text-ok" />
-        <h3 className="text-xl font-bold text-navy-900">Thank you, we have received your request</h3>
+        <h3 className="text-xl font-bold text-forest-900">Thank you, we have received your request</h3>
         <p className="max-w-sm text-sm text-steel-600">A Moon Star engineer will contact you. For urgent requirements please call our 24/7 support line.</p>
       </div>
     );

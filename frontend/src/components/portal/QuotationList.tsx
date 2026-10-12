@@ -37,7 +37,7 @@ export default async function QuotationList({ sp, revisedOnly = false, base }: {
             <tbody>
               {data.rows.map((r) => (
                 <tr key={r.id}>
-                  <td><Link href={`/portal/quotations/${r.id}`} className="font-bold text-navy-900 hover:text-ember-600">{r.number}</Link>{r.current_version > 1 && <span className="ml-1.5 rounded bg-steel-100 px-1.5 py-0.5 text-[11px] font-bold text-steel-600">V{r.current_version}</span>}</td>
+                  <td><Link href={`/portal/quotations/${r.id}`} className="font-bold text-forest-900 hover:text-brand-600">{r.number}</Link>{r.current_version > 1 && <span className="ml-1.5 rounded bg-steel-100 px-1.5 py-0.5 text-[11px] font-bold text-steel-600">V{r.current_version}</span>}</td>
                   <td>{r.project_name}{r.client_name && <p className="text-xs text-steel-500">{r.client_name}</p>}</td>
                   <td>{r.area_name}{r.housing_name && <p className="text-xs text-steel-500">{r.housing_name}</p>}</td>
                   <td>{r.creator_name}</td>

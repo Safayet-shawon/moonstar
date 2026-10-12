@@ -27,7 +27,7 @@ export default function AttachmentList({ projectId, items, canEdit }: { projectI
       <ul className="divide-y divide-steel-100 text-sm">
         {items.map((a) => (
           <li key={a.id} className="flex items-center justify-between gap-3 py-2">
-            <a href={a.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 font-semibold text-navy-800 hover:text-ember-600"><Paperclip className="size-4" />{a.file_name}<ExternalLink className="size-3" /></a>
+            <a href={a.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 font-semibold text-forest-800 hover:text-brand-600"><Paperclip className="size-4" />{a.file_name}<ExternalLink className="size-3" /></a>
             <span className="text-xs text-steel-500">{a.by_name}</span>
             {canEdit && <button aria-label="Remove" onClick={async () => { await api.del(`/portal/projects/${projectId}/attachments/${a.id}`); router.refresh(); }}><Trash2 className="size-4 text-bad" /></button>}
           </li>

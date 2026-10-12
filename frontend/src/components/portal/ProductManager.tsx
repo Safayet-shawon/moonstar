@@ -52,7 +52,7 @@ export default function ProductManager({ rows, categories, perms, showCost }: { 
 
       {edit && (
         <form onSubmit={submit} className="card grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4">
-          <h2 className="font-bold text-navy-900 sm:col-span-2 lg:col-span-4">{edit === "new" ? "New product" : `Edit ${edit.sku}`}</h2>
+          <h2 className="font-bold text-forest-900 sm:col-span-2 lg:col-span-4">{edit === "new" ? "New product" : `Edit ${edit.sku}`}</h2>
           <div><label className="label" htmlFor="pr-sku">SKU / code *</label><input id="pr-sku" name="sku" required className="field" defaultValue={p?.sku} /></div>
           <div className="sm:col-span-2"><label className="label" htmlFor="pr-name">Name *</label><input id="pr-name" name="name" required className="field" defaultValue={p?.name} /></div>
           <div><label className="label" htmlFor="pr-cat">Category *</label><select id="pr-cat" name="categoryId" required className="field" defaultValue={p?.category_id}>{categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select></div>
@@ -68,15 +68,15 @@ export default function ProductManager({ rows, categories, perms, showCost }: { 
           <div className="sm:col-span-2 lg:col-span-4"><label className="label" htmlFor="pr-specs">Technical specifications (JSON object or plain text)</label><textarea id="pr-specs" name="specs" className="field" defaultValue={p && Object.keys(p.specs ?? {}).length ? JSON.stringify(p.specs, null, 2) : ""} placeholder='{"Voltage ratio":"11/0.4 kV","Cooling":"ONAN"}' /></div>
           <div className="sm:col-span-2"><label className="label" htmlFor="pr-notes">Internal notes</label><input id="pr-notes" name="notes" className="field" defaultValue={p?.notes ?? ""} /></div>
           <div className="sm:col-span-2"><label className="label" htmlFor="pr-ps">Public summary (shown on website, no prices)</label><input id="pr-ps" name="publicSummary" className="field" defaultValue={p?.public_summary ?? ""} /></div>
-          <label className="flex items-center gap-2 text-sm font-semibold"><input type="checkbox" name="active" className="size-4 accent-ember-500" defaultChecked={p?.active ?? true} />Active (quotable)</label>
-          <label className="flex items-center gap-2 text-sm font-semibold"><input type="checkbox" name="publicVisible" className="size-4 accent-ember-500" defaultChecked={p?.public_visible ?? false} />Show on public catalogue</label>
+          <label className="flex items-center gap-2 text-sm font-semibold"><input type="checkbox" name="active" className="size-4 accent-brand-500" defaultChecked={p?.active ?? true} />Active (quotable)</label>
+          <label className="flex items-center gap-2 text-sm font-semibold"><input type="checkbox" name="publicVisible" className="size-4 accent-brand-500" defaultChecked={p?.public_visible ?? false} />Show on public catalogue</label>
           <div className="flex gap-2 sm:col-span-2 lg:col-span-4"><Button type="submit" variant="clay" disabled={busy}>{busy ? <Loader2 className="size-4 animate-spin" /> : null}Save</Button><Button variant="ghost" onClick={() => setEdit(null)}>Cancel</Button></div>
         </form>
       )}
 
       {hist && (
         <div className="card p-5">
-          <div className="mb-3 flex items-center justify-between"><h2 className="font-bold text-navy-900">Price history · {hist.p.sku}</h2><button className="text-sm font-bold text-ember-600" onClick={() => setHist(null)}>Close</button></div>
+          <div className="mb-3 flex items-center justify-between"><h2 className="font-bold text-forest-900">Price history · {hist.p.sku}</h2><button className="text-sm font-bold text-brand-600" onClick={() => setHist(null)}>Close</button></div>
           <div className="table-wrap"><table className="tbl"><thead><tr><th>Changed</th><th className="num">Price</th>{showCost && <th className="num">Cost</th>}<th>Effective from</th><th>By</th><th>Reason</th></tr></thead><tbody>
             {hist.rows.map((h) => <tr key={h.id}><td><DT v={h.created_at} /></td><td className="num"><Money v={h.price} /></td>{showCost && <td className="num"><Money v={h.cost} /></td>}<td><DT v={h.effective_from} /></td><td>{h.by_name ?? "system"}</td><td>{h.reason}</td></tr>)}
           </tbody></table></div>
@@ -89,7 +89,7 @@ export default function ProductManager({ rows, categories, perms, showCost }: { 
           <tbody>
             {rows.map((r) => (
               <tr key={r.id} className={r.active ? "" : "opacity-60"}>
-                <td className="font-mono text-xs">{r.sku}</td><td className="font-semibold text-navy-900">{r.name}</td><td>{r.category_name}</td>
+                <td className="font-mono text-xs">{r.sku}</td><td className="font-semibold text-forest-900">{r.name}</td><td>{r.category_name}</td>
                 <td className="num">{r.capacity_kva ? `${Number(r.capacity_kva)} kVA` : r.capacity_kvar ? `${Number(r.capacity_kvar)} kVAR` : "—"}</td>
                 <td className="num font-semibold"><Money v={r.price} /></td>{showCost && <td className="num"><Money v={r.cost} /></td>}
                 <td><D v={r.price_effective_from} /></td>

@@ -1,9 +1,7 @@
 # Content that needs real company input (nothing below is invented)
 
 1. **Certifications (placeholders are live).** The home page and /certifications show three cards: Ministry approval (Serial No. 94, from your site), BSTI and ELB. BSTI/ELB are **dummy placeholders** with "To be provided" for number/validity and a "Dummy · scan pending" tag. When the client sends the scans: put the image/PDF in `frontend/public/certs/`, then edit `frontend/src/content/certifications.ts` (set `status: "verified"`, `image`, `documentUrl`, `number`, `validity`, `authority`). The card then shows the image and a working "View document" button.
-2. **Logo.** The header uses a text wordmark with a bolt icon. The existing logo file on the old site is a 310×60 low-resolution image
-   on a black background. Provide a vector/high-resolution logo and replace `Logo()` in `frontend/src/components/site/Header.tsx`
-   (and the PDF header in `backend/src/lib/pdf.ts`).
+2. **Logo (done).** The client's real logo (green disc, white MPT) is used in the header, footer, portal, login, favicon, 3D hero coin and the quotation PDF. Sources: `frontend/public/img/logo*.{png,webp}`, `frontend/src/app/icon.png`, `backend/assets/logo.png` (regenerate all with `node scripts/make-logo.cjs <original.png>`). A vector (SVG) version from the designer would be sharper at large sizes.
 3. **Photographs.** Real photos (from the old site) are used for transformer, generator, solar and substations. The images for
    *HT/LT panels, PFI panels, lifts and maintenance* are **AI-generated photorealistic stand-ins**, labelled "Illustrative image" on
    the pages. Replace `frontend/public/img/{panels,pfi,lift,maintenance}.webp` with your own photographs.

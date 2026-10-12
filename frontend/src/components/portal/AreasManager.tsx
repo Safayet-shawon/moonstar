@@ -36,7 +36,7 @@ export default function AreasManager({ areas, housings, canCreate, canEdit }: { 
         {areas.map((a) => (
           <section key={a.id} className="card p-5">
             <div className="flex items-center justify-between gap-2">
-              <h2 className="font-bold text-navy-900">{a.name}</h2>
+              <h2 className="font-bold text-forest-900">{a.name}</h2>
               <div className="flex gap-1">
                 {canEdit && <button className="btn btn-ghost btn-sm" onClick={() => renameArea(a)} aria-label={`Rename ${a.name}`}><Pencil className="size-3.5" /></button>}
                 {canCreate && <Button variant="fabric-light" size="sm" onClick={() => addHousing(a.id)}><Plus className="size-3.5" />Housing</Button>}
@@ -46,13 +46,13 @@ export default function AreasManager({ areas, housings, canCreate, canEdit }: { 
             <ul className="mt-3 divide-y divide-steel-100 text-sm">
               {housings.filter((h) => h.area_id === a.id).map((h) => (
                 <li key={h.id} className="flex items-center justify-between py-2">
-                  <Link href={`/portal/projects?housingId=${h.id}`} className="flex items-center gap-2 font-semibold text-navy-800 hover:text-ember-600"><Building2 className="size-4 text-steel-500" />{h.name}</Link>
+                  <Link href={`/portal/projects?housingId=${h.id}`} className="flex items-center gap-2 font-semibold text-forest-800 hover:text-brand-600"><Building2 className="size-4 text-steel-500" />{h.name}</Link>
                   <span className="flex items-center gap-2 text-xs text-steel-500">{h.projects} projects{canEdit && <button onClick={() => renameHousing(h)} aria-label={`Rename ${h.name}`}><Pencil className="size-3" /></button>}</span>
                 </li>
               ))}
               {housings.every((h) => h.area_id !== a.id) && <li className="py-2 text-steel-500">No housing recorded</li>}
             </ul>
-            <Link href={`/portal/projects?areaId=${a.id}`} className="mt-3 inline-block text-xs font-bold text-ember-600">View projects →</Link>
+            <Link href={`/portal/projects?areaId=${a.id}`} className="mt-3 inline-block text-xs font-bold text-brand-600">View projects →</Link>
           </section>
         ))}
       </div>

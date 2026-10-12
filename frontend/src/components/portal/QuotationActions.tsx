@@ -60,9 +60,9 @@ export function VersionLinks({ id, versions, current, selected, canPdf }: { id: 
     <ul className="divide-y divide-steel-100 text-sm">
       {versions.map((v) => (
         <li key={v.version} className="flex flex-wrap items-center justify-between gap-2 py-2">
-          <Link href={`/portal/quotations/${id}?v=${v.version}`} className={`font-bold ${v.version === selected ? "text-ember-600" : "text-navy-900 hover:text-ember-600"}`}>V{v.version}{v.version === current && <span className="ml-1.5 rounded bg-ember-500/15 px-1.5 py-0.5 text-[10px] font-bold uppercase text-ember-600">current</span>}</Link>
+          <Link href={`/portal/quotations/${id}?v=${v.version}`} className={`font-bold ${v.version === selected ? "text-brand-600" : "text-forest-900 hover:text-brand-600"}`}>V{v.version}{v.version === current && <span className="ml-1.5 rounded bg-brand-500/15 px-1.5 py-0.5 text-[10px] font-bold uppercase text-brand-600">current</span>}</Link>
           <span className="text-xs text-steel-500">{v.quotation_date}{v.reason ? ` · ${v.reason}` : ""}</span>
-          {canPdf && <a href={`/api/portal/quotations/${id}/pdf?version=${v.version}`} target="_blank" rel="noopener" className="text-xs font-bold text-ember-600">PDF</a>}
+          {canPdf && <a href={`/api/portal/quotations/${id}/pdf?version=${v.version}`} target="_blank" rel="noopener" className="text-xs font-bold text-brand-600">PDF</a>}
         </li>
       ))}
     </ul>

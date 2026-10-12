@@ -32,7 +32,7 @@ const asStr = (v: unknown, d = "") => (v === undefined || v === null ? d : Strin
 function Sec({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
   return (
     <section className="card p-5 sm:p-6">
-      <h2 className="mb-4 flex items-center gap-3 text-lg font-bold text-navy-900"><span className="grid size-7 place-items-center rounded-full bg-navy-900 text-xs font-bold text-white">{n}</span>{title}</h2>
+      <h2 className="mb-4 flex items-center gap-3 text-lg font-bold text-forest-900"><span className="grid size-7 place-items-center rounded-full bg-forest-900 text-xs font-bold text-white">{n}</span>{title}</h2>
       {children}
     </section>
   );
@@ -209,7 +209,7 @@ export default function QuoteBuilder({ mode, quotationId, initial, perms, rules,
           {project ? (
             <div className="flex flex-wrap items-start justify-between gap-3 rounded-lg bg-paper p-4">
               <div>
-                <p className="text-lg font-bold text-navy-900">{project.name}</p>
+                <p className="text-lg font-bold text-forest-900">{project.name}</p>
                 <p className="text-sm text-steel-600">{project.area_name}{project.housing_name ? ` › ${project.housing_name}` : ""}{project.house_no ? ` · House ${project.house_no}` : ""}{project.road_no ? ` · Road ${project.road_no}` : ""}</p>
                 <p className="text-sm text-steel-600">{project.client_name ?? "No client recorded"}{project.total_load_kw ? ` · ${Number(project.total_load_kw)} kW connected load` : ""}</p>
               </div>
@@ -223,7 +223,7 @@ export default function QuoteBuilder({ mode, quotationId, initial, perms, rules,
               <ul className="mt-3 divide-y divide-steel-100 rounded-lg border border-steel-200">
                 {pResults.map((p) => (
                   <li key={p.id}><button className="flex w-full items-center justify-between px-4 py-3 text-left hover:bg-paper" onClick={() => { setProject(p); if (p.total_load_kw && !totalKw) setTotalKw(String(Number(p.total_load_kw))); if (rules.categories[p.category]) setCategory(p.category); }}>
-                    <span><b className="text-navy-900">{p.name}</b><span className="block text-xs text-steel-500">{p.area_name}{p.housing_name ? ` › ${p.housing_name}` : ""}{p.client_name ? ` · ${p.client_name}` : ""}</span></span><Check className="size-4 text-steel-300" />
+                    <span><b className="text-forest-900">{p.name}</b><span className="block text-xs text-steel-500">{p.area_name}{p.housing_name ? ` › ${p.housing_name}` : ""}{p.client_name ? ` · ${p.client_name}` : ""}</span></span><Check className="size-4 text-steel-300" />
                   </button></li>
                 ))}
                 {pResults.length === 0 && <li className="px-4 py-3 text-sm text-steel-500">No matching projects.</li>}
@@ -263,7 +263,7 @@ export default function QuoteBuilder({ mode, quotationId, initial, perms, rules,
                 <div><label className="label" htmlFor="b-div">Diversity factor</label><input id="b-div" className="field" value={diversity} inputMode="decimal" onChange={(e) => setDiversity(e.target.value)} /></div>
                 <div><label className="label" htmlFor="b-exp">Future expansion (%)</label><input id="b-exp" className="field" value={expansion} inputMode="decimal" onChange={(e) => setExpansion(e.target.value)} /></div>
                 <div><label className="label" htmlFor="b-tpf">Target power factor</label><input id="b-tpf" className="field" value={targetPf} inputMode="decimal" onChange={(e) => setTargetPf(e.target.value)} /></div>
-                <label className="flex items-end gap-2 pb-2.5 text-sm font-semibold text-navy-800"><input type="checkbox" className="size-4 accent-ember-500" checked={includePf} onChange={(e) => setIncludePf(e.target.checked)} />Size on PF-corrected kVA</label>
+                <label className="flex items-end gap-2 pb-2.5 text-sm font-semibold text-forest-800"><input type="checkbox" className="size-4 accent-brand-500" checked={includePf} onChange={(e) => setIncludePf(e.target.checked)} />Size on PF-corrected kVA</label>
               </div>
               <div className="grid gap-4 sm:grid-cols-3">
                 <div><label className="label" htmlFor="b-v">System voltage</label><input id="b-v" className="field" value={voltage} onChange={(e) => setVoltage(e.target.value)} /></div>
@@ -272,8 +272,8 @@ export default function QuoteBuilder({ mode, quotationId, initial, perms, rules,
               </div>
 
               {/* RESULT */}
-              <div className="rounded-xl border border-navy-800/20 bg-navy-900 p-5 text-white" aria-live="polite">
-                <div className="mb-3 flex flex-wrap items-center justify-between gap-2"><h3 className="flex items-center gap-2 font-bold"><Calculator className="size-5 text-ember-400" />Engineering calculation</h3><span className="rounded-full bg-amber-400/20 px-3 py-1 text-xs font-bold text-amber-300">PRELIMINARY · awaiting technical approval</span></div>
+              <div className="rounded-xl border border-forest-800/20 bg-forest-900 p-5 text-white" aria-live="polite">
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-2"><h3 className="flex items-center gap-2 font-bold"><Calculator className="size-5 text-brand-400" />Engineering calculation</h3><span className="rounded-full bg-amber-400/20 px-3 py-1 text-xs font-bold text-amber-300">PRELIMINARY · awaiting technical approval</span></div>
                 {calcBusy && !calc && <p className="flex items-center gap-2 text-sm text-steel-300"><Loader2 className="size-4 animate-spin" />Calculating…</p>}
                 {calcErr && <p className="text-sm font-semibold text-red-300">{calcErr}</p>}
                 {!calc && !calcBusy && !calcErr && <p className="text-sm text-steel-300">Enter the load to see the recommendation.</p>}
@@ -283,7 +283,7 @@ export default function QuoteBuilder({ mode, quotationId, initial, perms, rules,
                       {[["Connected load", `${calc.connectedKw} kW`], ["Max demand", `${calc.maxDemandKw} kW / ${calc.maxDemandKvar} kVAR`], ["Apparent power", `${calc.apparentKva} kVA`], ["System PF", String(calc.systemPf)], ["Design kVA", String(calc.designKva)], ["HT current", `${calc.htCurrentA} A`], ["LV current", `${calc.lvCurrentA} A`], ["LV cable (indicative)", calc.lvCable]].map(([k, v]) => <div key={k}><dt className="text-[11px] uppercase tracking-wide text-steel-300">{k}</dt><dd className="font-semibold">{v}</dd></div>)}
                     </dl>
                     <div className="flex flex-wrap items-center gap-4 rounded-lg bg-white/10 p-4">
-                      <div><p className="text-[11px] uppercase tracking-wide text-steel-300">Recommended transformer</p><p className="font-display text-3xl font-extrabold text-ember-400">{calc.recommendedKva ? `${calc.units > 1 ? `${calc.units} × ` : ""}${calc.recommendedKva} kVA` : "Custom design"}</p><p className="text-xs text-steel-300">Loading ≈ {calc.loadingPct ?? "—"}% of {calc.totalInstalledKva ?? "—"} kVA installed</p></div>
+                      <div><p className="text-[11px] uppercase tracking-wide text-steel-300">Recommended transformer</p><p className="font-display text-3xl font-extrabold text-brand-400">{calc.recommendedKva ? `${calc.units > 1 ? `${calc.units} × ` : ""}${calc.recommendedKva} kVA` : "Custom design"}</p><p className="text-xs text-steel-300">Loading ≈ {calc.loadingPct ?? "—"}% of {calc.totalInstalledKva ?? "—"} kVA installed</p></div>
                       {calc.pfiKvar !== null && <div><p className="text-[11px] uppercase tracking-wide text-steel-300">PFI bank</p><p className="font-display text-2xl font-extrabold">{calc.pfiKvar} kVAR</p></div>}
                       <div className="ml-auto"><Button variant="clay" size="sm" onClick={suggest} disabled={!calc.recommendedKva}><PackagePlus className="size-4" />Add recommended equipment</Button></div>
                     </div>
@@ -299,7 +299,7 @@ export default function QuoteBuilder({ mode, quotationId, initial, perms, rules,
 
               {can("quotation.override_technical") && calc?.ok && (
                 <div className="rounded-lg border border-steel-200 p-4">
-                  <label className="flex items-center gap-2 text-sm font-bold text-navy-900"><input type="checkbox" className="size-4 accent-ember-500" checked={ovOn} onChange={(e) => setOvOn(e.target.checked)} />Engineer override of the recommendation</label>
+                  <label className="flex items-center gap-2 text-sm font-bold text-forest-900"><input type="checkbox" className="size-4 accent-brand-500" checked={ovOn} onChange={(e) => setOvOn(e.target.checked)} />Engineer override of the recommendation</label>
                   {ovOn && <div className="mt-3 grid gap-3 sm:grid-cols-4"><div><label className="label" htmlFor="ov-k">Rating (kVA)</label><input id="ov-k" className="field" inputMode="decimal" value={ovKva} onChange={(e) => setOvKva(e.target.value)} /></div><div><label className="label" htmlFor="ov-u">Units</label><input id="ov-u" className="field" inputMode="numeric" value={ovUnits} onChange={(e) => setOvUnits(e.target.value)} /></div><div className="sm:col-span-2"><label className="label" htmlFor="ov-r">Reason (recorded, min 10 chars) *</label><input id="ov-r" className="field" value={ovReason} onChange={(e) => setOvReason(e.target.value)} /></div></div>}
                 </div>
               )}
@@ -319,7 +319,7 @@ export default function QuoteBuilder({ mode, quotationId, initial, perms, rules,
             <input className="field pl-9" placeholder="Search the product catalogue by name, SKU, brand…" value={sq} onFocus={() => setSOpen(true)} onChange={(e) => { setSq(e.target.value); setSOpen(true); }} aria-label="Search catalogue" />
             {sOpen && (
               <div className="absolute z-20 mt-1 max-h-72 w-full overflow-auto rounded-lg border border-steel-200 bg-white shadow-xl">
-                {sResults.map((p) => <button key={p.id} className="flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left text-sm hover:bg-paper" onClick={() => { addProduct(p); setSOpen(false); setSq(""); }}><span><b className="text-navy-900">{p.name}</b><span className="block text-xs text-steel-500">{p.sku} · {p.category_name}</span></span><span className="shrink-0 font-semibold tabular-nums">{fmt(p.price)}</span></button>)}
+                {sResults.map((p) => <button key={p.id} className="flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left text-sm hover:bg-paper" onClick={() => { addProduct(p); setSOpen(false); setSq(""); }}><span><b className="text-forest-900">{p.name}</b><span className="block text-xs text-steel-500">{p.sku} · {p.category_name}</span></span><span className="shrink-0 font-semibold tabular-nums">{fmt(p.price)}</span></button>)}
                 {sResults.length === 0 && <p className="px-4 py-3 text-sm text-steel-500">No active products match.</p>}
                 <button className="w-full border-t border-steel-100 px-4 py-2 text-center text-xs font-bold text-steel-500 hover:bg-paper" onClick={() => setSOpen(false)}>Close</button>
               </div>
@@ -330,7 +330,7 @@ export default function QuoteBuilder({ mode, quotationId, initial, perms, rules,
             <div className="table-wrap mt-4"><table className="tbl"><thead><tr><th>Item</th><th className="w-24">Qty</th><th className="w-36">Unit price</th>{can("quotation.discount") && <th className="w-44">Discount</th>}<th className="num w-36">Line total</th><th /></tr></thead><tbody>
               {items.map((i, ix) => (
                 <tr key={i.key}>
-                  <td>{i.productId ? <><b className="text-navy-900">{i.name}</b><p className="text-xs text-steel-500">{i.sku}</p></> : <input aria-label="Item name" className="field min-h-9 py-1" value={i.name} placeholder="Description" onChange={(e) => patchItem(i.key, { name: e.target.value })} />}
+                  <td>{i.productId ? <><b className="text-forest-900">{i.name}</b><p className="text-xs text-steel-500">{i.sku}</p></> : <input aria-label="Item name" className="field min-h-9 py-1" value={i.name} placeholder="Description" onChange={(e) => patchItem(i.key, { name: e.target.value })} />}
                     {i.productId && i.priceTouched && i.catalogPrice && i.unitPrice !== i.catalogPrice && <p className="text-xs font-semibold text-warn">Manual price (catalogue {fmt(i.catalogPrice)})</p>}</td>
                   <td><input aria-label={`Quantity for ${i.name}`} className="field min-h-9 py-1" inputMode="decimal" value={i.qty} onChange={(e) => patchItem(i.key, { qty: e.target.value })} /><p className="mt-0.5 text-xs text-steel-500">{i.unit}</p></td>
                   <td>{can("quotation.manual_price") || !i.productId ? <input aria-label="Unit price" className="field min-h-9 py-1" inputMode="decimal" value={i.unitPrice} onChange={(e) => patchItem(i.key, { unitPrice: e.target.value, priceTouched: true })} /> : <span className="tabular-nums">{fmt(preview?.lines[ix]?.unitPrice ?? i.unitPrice)}</span>}</td>
@@ -361,12 +361,12 @@ export default function QuoteBuilder({ mode, quotationId, initial, perms, rules,
       {/* SUMMARY */}
       <aside className="xl:sticky xl:top-20 xl:self-start">
         <div className="card p-5">
-          <h2 className="font-bold text-navy-900">Quotation summary</h2>
+          <h2 className="font-bold text-forest-900">Quotation summary</h2>
           <p className="mt-0.5 text-xs text-steel-500">Totals are calculated and verified on the server.</p>
           {prevErr && <div className="mt-3"><Notice tone="bad">{prevErr}</Notice></div>}
           <dl className="mt-4 space-y-2 text-sm">
             {[["Subtotal", preview?.totals.subtotal], ["Line discounts", preview?.totals.itemDiscounts], ["Overall discount", preview?.totals.quotationDiscount], ["Charges", preview?.totals.charges], ["Tax", preview?.totals.tax]].map(([k, v]) => <div key={k as string} className="flex justify-between"><dt className="text-steel-600">{k}</dt><dd className="tabular-nums">{fmt(v as string | undefined)}</dd></div>)}
-            <div className="flex justify-between border-t border-steel-200 pt-3 text-base font-extrabold text-navy-900"><dt>Total</dt><dd className="tabular-nums">{fmt(preview?.totals.total)}</dd></div>
+            <div className="flex justify-between border-t border-steel-200 pt-3 text-base font-extrabold text-forest-900"><dt>Total</dt><dd className="tabular-nums">{fmt(preview?.totals.total)}</dd></div>
           </dl>
           {preview?.totals.marginPct && <p className="mt-3 text-xs text-steel-600">Margin on cost: <b>{preview.totals.marginPct}%</b></p>}
           {preview?.totals.marginWarning && <div className="mt-3"><Notice tone="warn">Margin is below the configured minimum. Review pricing before submitting.</Notice></div>}

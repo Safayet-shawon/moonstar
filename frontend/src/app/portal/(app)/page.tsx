@@ -31,12 +31,12 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
       </div>
       <div className="mt-8 grid gap-6 lg:grid-cols-5">
         <section className="card p-5 lg:col-span-3">
-          <h2 className="mb-3 font-bold text-navy-900">Recent activity</h2>
+          <h2 className="mb-3 font-bold text-forest-900">Recent activity</h2>
           {s.recent.length === 0 ? <p className="text-sm text-steel-600">No activity yet.</p> : (
             <ul className="divide-y divide-steel-100 text-sm">
               {s.recent.map((r, i) => (
                 <li key={i} className="flex justify-between gap-3 py-2.5">
-                  <span><b className="text-navy-900">{r.user_name ?? "System"}</b> <span className="text-steel-600">{label(r.action)}</span>{typeof r.detail?.number === "string" && <> · <span className="font-semibold">{r.detail.number}</span></>}</span>
+                  <span><b className="text-forest-900">{r.user_name ?? "System"}</b> <span className="text-steel-600">{label(r.action)}</span>{typeof r.detail?.number === "string" && <> · <span className="font-semibold">{r.detail.number}</span></>}</span>
                   <time className="shrink-0 text-xs text-steel-500"><DT v={r.at} tz={tz} /></time>
                 </li>
               ))}
@@ -44,11 +44,11 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
           )}
         </section>
         <section className="card p-5 lg:col-span-2">
-          <h2 className="mb-3 font-bold text-navy-900">Recently updated projects</h2>
+          <h2 className="mb-3 font-bold text-forest-900">Recently updated projects</h2>
           {s.projects.length === 0 ? <p className="text-sm text-steel-600">No projects yet.</p> : (
             <ul className="divide-y divide-steel-100 text-sm">
               {s.projects.map((p) => (
-                <li key={p.id} className="py-2.5"><Link href={`/portal/projects/${p.id}`} className="font-semibold text-navy-900 hover:text-ember-600">{p.name}</Link><p className="text-xs text-steel-500">{p.area_name} · <DT v={p.updated_at} tz={tz} /></p></li>
+                <li key={p.id} className="py-2.5"><Link href={`/portal/projects/${p.id}`} className="font-semibold text-forest-900 hover:text-brand-600">{p.name}</Link><p className="text-xs text-steel-500">{p.area_name} · <DT v={p.updated_at} tz={tz} /></p></li>
               ))}
             </ul>
           )}

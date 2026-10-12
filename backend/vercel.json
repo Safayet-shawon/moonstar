@@ -4,6 +4,6 @@
   "installCommand": "cd .. && npm install",
   "buildCommand": "npm run build",
   "outputDirectory": "public",
-  "functions": { "api/index.mjs": { "maxDuration": 30, "includeFiles": "{dist,db}/**" } },
+  "functions": { "api/index.mjs": { "maxDuration": 30, "includeFiles": "{dist,db,assets}/**" } },
   "rewrites": [{ "source": "/(.*)", "destination": "/api/index.mjs" }]
 }

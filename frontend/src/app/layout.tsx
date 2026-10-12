@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   robots: process.env.NEXT_PUBLIC_DEMO_MODE === "1" ? { index: false, follow: false } : { index: true, follow: true },
 };
 
-export const viewport: Viewport = { themeColor: "#0b1f3a", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#062a16", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

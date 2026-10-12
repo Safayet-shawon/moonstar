@@ -34,10 +34,10 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
         </div>
         <div>
           <p className="text-lg leading-relaxed text-steel-600">{s.intro}</p>
-          <h2 className="mt-8 text-xl font-bold text-navy-900">What we provide</h2>
-          <ul className="mt-3 space-y-2">{s.provide.map((p) => <li key={p} className="flex gap-2 text-steel-600"><Check className="mt-0.5 size-5 shrink-0 text-ember-500" />{p}</li>)}</ul>
-          <h2 className="mt-8 text-xl font-bold text-navy-900">Projects we serve</h2>
-          <ul className="mt-3 space-y-2">{s.serves.map((p) => <li key={p} className="flex gap-2 text-steel-600"><Check className="mt-0.5 size-5 shrink-0 text-navy-700" />{p}</li>)}</ul>
+          <h2 className="mt-8 text-xl font-bold text-forest-900">What we provide</h2>
+          <ul className="mt-3 space-y-2">{s.provide.map((p) => <li key={p} className="flex gap-2 text-steel-600"><Check className="mt-0.5 size-5 shrink-0 text-brand-500" />{p}</li>)}</ul>
+          <h2 className="mt-8 text-xl font-bold text-forest-900">Projects we serve</h2>
+          <ul className="mt-3 space-y-2">{s.serves.map((p) => <li key={p} className="flex gap-2 text-steel-600"><Check className="mt-0.5 size-5 shrink-0 text-forest-700" />{p}</li>)}</ul>
           <div className="mt-9 flex flex-wrap gap-3">
             <ButtonLink href={`/contact?service=${encodeURIComponent(s.title)}#quote`} variant="clay" size="lg">Request a technical consultation</ButtonLink>
             {s.productCategory && <ButtonLink href="/products" variant="fabric-light" size="lg">View catalogue</ButtonLink>}
@@ -47,9 +47,9 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
       </section>
       <section className="bg-paper py-16">
         <div className="mx-auto max-w-7xl px-4">
-          <h2 className="text-2xl font-bold text-navy-900">Other solutions</h2>
+          <h2 className="text-2xl font-bold text-forest-900">Other solutions</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{others.map((o) => <SolutionCard key={o.slug} s={o} />)}</div>
-          <p className="mt-8 text-sm"><Link href="/solutions" className="font-bold text-ember-600">All solutions →</Link></p>
+          <p className="mt-8 text-sm"><Link href="/solutions" className="font-bold text-brand-600">All solutions →</Link></p>
         </div>
       </section>
     </>

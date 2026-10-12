@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import type { PortfolioProject } from "@/content/projects";
+import Tilt from "./Tilt";
 
 const BANDS = [
   { key: "all", label: "All", test: () => true },
@@ -21,15 +22,15 @@ export default function ProjectGrid({ projects }: { projects: PortfolioProject[]
       </div>
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map((p) => (
-          <article key={p.name} className="card p-6 transition-shadow hover:shadow-lg">
-            <p className="font-display text-5xl font-extrabold text-navy-900">{p.capacityKva}<span className="ml-1 text-lg font-bold text-ember-600">kVA</span></p>
-            <h3 className="mt-3 text-lg font-bold text-navy-900">{p.name}</h3>
+          <Tilt key={p.name}><article className="card h-full p-6 transition-shadow hover:shadow-lg">
+            <p className="font-display text-5xl font-extrabold text-forest-900">{p.capacityKva}<span className="ml-1 text-lg font-bold text-brand-600">kVA</span></p>
+            <h3 className="mt-3 text-lg font-bold text-forest-900">{p.name}</h3>
             <dl className="mt-3 space-y-1 text-sm text-steel-600">
-              <div className="flex gap-2"><dt className="font-semibold text-navy-800">Location</dt><dd>{p.location}</dd></div>
-              <div className="flex gap-2"><dt className="font-semibold text-navy-800">Scope</dt><dd>{p.scope}</dd></div>
+              <div className="flex gap-2"><dt className="font-semibold text-forest-800">Location</dt><dd>{p.location}</dd></div>
+              <div className="flex gap-2"><dt className="font-semibold text-forest-800">Scope</dt><dd>{p.scope}</dd></div>
             </dl>
             <p className="mt-4 inline-block rounded bg-steel-100 px-2 py-1 text-xs font-bold uppercase tracking-wide text-steel-600">{p.type}</p>
-          </article>
+          </article></Tilt>
         ))}
       </div>
       {shown.length === 0 && <p className="mt-8 text-steel-600">No projects in this range yet.</p>}

@@ -56,7 +56,7 @@ function Template({ v }: { v: S }) {
       <div className="sm:col-span-2"><Field label="Payment terms" name="paymentTerms" value={v.paymentTerms} textarea /></div>
       <div className="sm:col-span-2"><Field label="Terms & conditions (one per line)" name="terms" value={((v.terms as string[]) ?? []).join("\n")} textarea /></div>
       <Field label="Default authorised signatory name" name="signatoryName" value={v.signatoryName} /><Field label="Signatory title" name="signatoryTitle" value={v.signatoryTitle} />
-      <label className="flex items-center gap-2 text-sm font-semibold sm:col-span-2"><input type="checkbox" name="showSignatureBlock" className="size-4 accent-ember-500" defaultChecked={v.showSignatureBlock as boolean} />Show signatory block on the PDF</label>
+      <label className="flex items-center gap-2 text-sm font-semibold sm:col-span-2"><input type="checkbox" name="showSignatureBlock" className="size-4 accent-brand-500" defaultChecked={v.showSignatureBlock as boolean} />Show signatory block on the PDF</label>
       <p className="text-xs text-steel-500 sm:col-span-2">A signatory name is printed as authorised only if it is set here or the preparing user is flagged as an authorised signatory. No signature image is added automatically.</p>
       <div className="sm:col-span-2"><Button type="submit" variant="clay" disabled={busy}>{busy && <Loader2 className="size-4 animate-spin" />}Save template</Button>{msg && <div className="mt-3"><Notice tone={msg.tone}>{msg.text}</Notice></div>}</div>
     </form>

@@ -13,7 +13,7 @@ export default function Projects() {
       <section className="mx-auto max-w-7xl px-4 py-16">
         <ProjectGrid projects={PROJECTS} />
         <div className="mt-14 rounded-xl bg-paper p-8 text-center">
-          <h2 className="text-xl font-bold text-navy-900">Planning a substation?</h2>
+          <h2 className="text-xl font-bold text-forest-900">Planning a substation?</h2>
           <p className="mx-auto mt-2 max-w-xl text-sm text-steel-600">Tell us about your building and we will propose the right capacity and equipment.</p>
           <ButtonLink href="/contact#quote" variant="clay" className="mt-5">Request a quotation</ButtonLink>
         </div>

@@ -42,7 +42,7 @@ export default function WorkOrderForm({ quotationId, initial, defaultValue }: { 
           <div key={i} className="mb-2 flex flex-wrap items-center gap-2">
             <input aria-label="Milestone" className="field min-w-52 flex-1" placeholder="e.g. Transformer delivery" value={m.title} onChange={(e) => setMs((c) => c.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)))} />
             <input aria-label="Due date" type="date" className="field w-44" value={m.due ?? ""} onChange={(e) => setMs((c) => c.map((x, j) => (j === i ? { ...x, due: e.target.value } : x)))} />
-            <label className="flex items-center gap-1 text-sm"><input type="checkbox" className="accent-ember-500" checked={m.done} onChange={(e) => setMs((c) => c.map((x, j) => (j === i ? { ...x, done: e.target.checked } : x)))} />Done</label>
+            <label className="flex items-center gap-1 text-sm"><input type="checkbox" className="accent-brand-500" checked={m.done} onChange={(e) => setMs((c) => c.map((x, j) => (j === i ? { ...x, done: e.target.checked } : x)))} />Done</label>
             <button type="button" aria-label="Remove milestone" onClick={() => setMs((c) => c.filter((_, j) => j !== i))}><Trash2 className="size-4 text-bad" /></button>
           </div>
         ))}

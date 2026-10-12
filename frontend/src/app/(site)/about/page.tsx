@@ -31,7 +31,7 @@ export default function About() {
           <SectionHead eyebrow="Capabilities" title="What we do" />
           <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {SOLUTIONS.map((s) => (
-              <li key={s.slug} className="card p-5" data-reveal><h3 className="font-bold text-navy-900">{s.title}</h3><p className="mt-2 text-sm text-steel-600">{s.short}</p></li>
+              <li key={s.slug} className="card p-5" data-reveal><h3 className="font-bold text-forest-900">{s.title}</h3><p className="mt-2 text-sm text-steel-600">{s.short}</p></li>
             ))}
           </ul>
         </div>
@@ -40,7 +40,7 @@ export default function About() {
         <SectionHead eyebrow="Locations" title="Where to find us" />
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {[["Factory", COMPANY.factory], ["Branch office", COMPANY.branch], ["Khulna office", COMPANY.khulna]].map(([t, a]) => (
-            <div key={t} className="card p-6" data-reveal><h3 className="font-bold text-navy-900">{t}</h3><p className="mt-2 text-sm text-steel-600">{a}</p></div>
+            <div key={t} className="card p-6" data-reveal><h3 className="font-bold text-forest-900">{t}</h3><p className="mt-2 text-sm text-steel-600">{a}</p></div>
           ))}
         </div>
         <ButtonLink href={COMPANY.mapUrl} target="_blank" rel="noopener noreferrer" variant="fabric-light" className="mt-8">Open in Google Maps</ButtonLink>

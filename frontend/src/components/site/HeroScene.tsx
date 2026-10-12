@@ -48,16 +48,16 @@ export default function HeroScene() {
       });
       const lg = new THREE.BufferGeometry();
       lg.setAttribute("position", new THREE.BufferAttribute(linePos, 3));
-      const lines = new THREE.LineSegments(lg, new THREE.LineBasicMaterial({ color: 0x5b86c4, transparent: true, opacity: 0.28 }));
+      const lines = new THREE.LineSegments(lg, new THREE.LineBasicMaterial({ color: 0x4fbf7f, transparent: true, opacity: 0.3 }));
 
       const ng = new THREE.BufferGeometry().setFromPoints(pts);
-      const nodes = new THREE.Points(ng, new THREE.PointsMaterial({ color: 0xbcd3f5, size: 0.11, transparent: true, opacity: 0.9 }));
+      const nodes = new THREE.Points(ng, new THREE.PointsMaterial({ color: 0xc9f5da, size: 0.11, transparent: true, opacity: 0.9 }));
 
       const PULSES = 26;
       const pulseState = Array.from({ length: PULSES }, () => ({ link: Math.floor(Math.random() * links.length), t: Math.random(), speed: 0.12 + Math.random() * 0.25 }));
       const pg = new THREE.BufferGeometry();
       pg.setAttribute("position", new THREE.BufferAttribute(new Float32Array(PULSES * 3), 3));
-      const pulses = new THREE.Points(pg, new THREE.PointsMaterial({ color: 0xf08d3f, size: 0.28, transparent: true, opacity: 0.95, depthWrite: false }));
+      const pulses = new THREE.Points(pg, new THREE.PointsMaterial({ color: 0x3ccf78, size: 0.3, transparent: true, opacity: 0.95, depthWrite: false }));
 
       const group = new THREE.Group();
       group.add(lines, nodes, pulses);

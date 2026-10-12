@@ -55,15 +55,15 @@ export default function EmployeesManager({ users, roles, permissions, canUsers, 
           {!form && <Button variant="clay" onClick={() => setForm("new")}><Plus className="size-4" />Add employee</Button>}
           {form && (
             <form onSubmit={saveUser} className="card grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-3">
-              <h2 className="font-bold text-navy-900 sm:col-span-2 lg:col-span-3">{form === "new" ? "New employee" : `Edit ${u!.name}`}</h2>
+              <h2 className="font-bold text-forest-900 sm:col-span-2 lg:col-span-3">{form === "new" ? "New employee" : `Edit ${u!.name}`}</h2>
               <div><label className="label" htmlFor="u-name">Full name *</label><input id="u-name" name="name" required className="field" defaultValue={u?.name} /></div>
               <div><label className="label" htmlFor="u-email">Email *</label><input id="u-email" name="email" type="email" required className="field" defaultValue={u?.email} /></div>
               <div><label className="label" htmlFor="u-role">Role *</label><select id="u-role" name="role" className="field" defaultValue={u?.role ?? "employee"}>{assignable.map((r) => <option key={r.key} value={r.key}>{r.name}</option>)}</select></div>
               <div><label className="label" htmlFor="u-phone">Phone</label><input id="u-phone" name="phone" className="field" defaultValue={u?.phone ?? ""} /></div>
               <div><label className="label" htmlFor="u-des">Designation</label><input id="u-des" name="designation" className="field" defaultValue={u?.designation ?? ""} /></div>
               {form === "new" && <div><label className="label" htmlFor="u-pw">Initial password *</label><input id="u-pw" name="password" type="text" required minLength={10} autoComplete="off" className="field" placeholder="min 10 chars, upper+lower+digit" /><p className="mt-1 text-xs text-steel-500">User must change it at first login.</p></div>}
-              <label className="flex items-center gap-2 text-sm font-semibold"><input type="checkbox" name="active" className="size-4 accent-ember-500" defaultChecked={u?.active ?? true} />Active</label>
-              <label className="flex items-center gap-2 text-sm font-semibold"><input type="checkbox" name="isSignatory" className="size-4 accent-ember-500" defaultChecked={u?.is_signatory} />Authorised signatory (appears as signatory on PDFs)</label>
+              <label className="flex items-center gap-2 text-sm font-semibold"><input type="checkbox" name="active" className="size-4 accent-brand-500" defaultChecked={u?.active ?? true} />Active</label>
+              <label className="flex items-center gap-2 text-sm font-semibold"><input type="checkbox" name="isSignatory" className="size-4 accent-brand-500" defaultChecked={u?.is_signatory} />Authorised signatory (appears as signatory on PDFs)</label>
               <div><label className="label" htmlFor="u-st">Signatory title</label><input id="u-st" name="signatoryTitle" className="field" defaultValue={u?.signatory_title ?? ""} /></div>
               <div className="flex gap-2 sm:col-span-2 lg:col-span-3"><Button type="submit" variant="clay">Save</Button><Button variant="ghost" onClick={() => setForm(null)}>Cancel</Button></div>
             </form>
@@ -71,7 +71,7 @@ export default function EmployeesManager({ users, roles, permissions, canUsers, 
           <div className="table-wrap"><table className="tbl"><thead><tr><th>Name</th><th>Role</th><th>Designation</th><th>Status</th><th>Last sign-in</th><th /></tr></thead><tbody>
             {users.map((x) => (
               <tr key={x.id} className={x.active ? "" : "opacity-60"}>
-                <td><b className="text-navy-900">{x.name}</b><p className="text-xs text-steel-500">{x.email}</p></td><td>{x.role_name}</td><td>{x.designation ?? "—"}{x.is_signatory && <span className="badge badge-approved ml-1">Signatory</span>}</td>
+                <td><b className="text-forest-900">{x.name}</b><p className="text-xs text-steel-500">{x.email}</p></td><td>{x.role_name}</td><td>{x.designation ?? "—"}{x.is_signatory && <span className="badge badge-approved ml-1">Signatory</span>}</td>
                 <td>{x.active ? <span className="badge badge-accepted">Active</span> : <span className="badge badge-draft">Disabled</span>}</td><td className="text-xs">{x.last_login ? <DT v={x.last_login} /> : "never"}</td>
                 <td className="whitespace-nowrap">
                   <button className="btn btn-ghost btn-sm" aria-label={`Edit ${x.name}`} onClick={() => setForm(x)}><Pencil className="size-3.5" /></button>
@@ -85,7 +85,7 @@ export default function EmployeesManager({ users, roles, permissions, canUsers, 
 
       {overrideFor && (
         <div className="card p-5">
-          <div className="mb-3 flex items-center justify-between"><h2 className="font-bold text-navy-900">Individual permissions · {overrideFor.user.name} <span className="font-normal text-steel-500">({overrideFor.user.role_name})</span></h2><button className="text-sm font-bold text-ember-600" onClick={() => setOverrideFor(null)}>Close</button></div>
+          <div className="mb-3 flex items-center justify-between"><h2 className="font-bold text-forest-900">Individual permissions · {overrideFor.user.name} <span className="font-normal text-steel-500">({overrideFor.user.role_name})</span></h2><button className="text-sm font-bold text-brand-600" onClick={() => setOverrideFor(null)}>Close</button></div>
           <p className="mb-3 text-xs text-steel-500">“Inherit” follows the role. Grant or deny to override for this person only. You can only grant permissions you hold yourself.</p>
           {groups.map((g) => (
             <fieldset key={g} className="mb-4"><legend className="mb-1 text-xs font-bold uppercase tracking-wider text-steel-500">{g}</legend>
@@ -110,7 +110,7 @@ export default function EmployeesManager({ users, roles, permissions, canUsers, 
               {groups.map((g) => (
                 <fieldset key={g} className="mb-4"><legend className="mb-1 text-xs font-bold uppercase tracking-wider text-steel-500">{g}</legend>
                   <div className="grid gap-1.5 sm:grid-cols-2">{permissions.filter((p) => p.group === g).map((p) => (
-                    <label key={p.key} className="flex items-center gap-2 rounded border border-steel-100 px-3 py-1.5 text-sm"><input type="checkbox" className="size-4 accent-ember-500" checked={rolePerms.has(p.key)} onChange={(e) => setRolePerms((s) => { const n = new Set(s); if (e.target.checked) n.add(p.key); else n.delete(p.key); return n; })} />{p.description}</label>
+                    <label key={p.key} className="flex items-center gap-2 rounded border border-steel-100 px-3 py-1.5 text-sm"><input type="checkbox" className="size-4 accent-brand-500" checked={rolePerms.has(p.key)} onChange={(e) => setRolePerms((s) => { const n = new Set(s); if (e.target.checked) n.add(p.key); else n.delete(p.key); return n; })} />{p.description}</label>
                   ))}</div></fieldset>
               ))}
               <Button variant="clay" onClick={() => run(() => api.put(`/portal/roles/${roleKey}/permissions`, { permissions: [...rolePerms] }), "Role permissions updated.")}>Save role permissions</Button>

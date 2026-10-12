@@ -6,7 +6,7 @@ import fs from "node:fs";
 
 const base = process.argv[2] ?? "http://localhost:3000";
 const chromePath = process.env.CHROME_PATH ?? ["C:/Program Files/Google/Chrome/Application/chrome.exe", "/usr/bin/google-chrome", "/usr/bin/chromium"].find((p) => fs.existsSync(p));
-const pages = ["/", "/solutions", "/solutions/transformers", "/projects", "/contact", "/portal/login"];
+const pages = process.env.PAGES ? process.env.PAGES.split(",") : ["/", "/solutions", "/solutions/transformers", "/projects", "/contact", "/portal/login"];
 const chrome = await chromeLauncher.launch({ chromePath, chromeFlags: ["--headless=new", "--no-sandbox"] });
 const rows = [];
 for (const p of pages) {

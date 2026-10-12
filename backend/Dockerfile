@@ -25,6 +25,7 @@ COPY --from=prod-deps /repo/node_modules /app/node_modules
 COPY --from=prod-deps /repo/backend/node_modules ./node_modules
 COPY --from=build /repo/backend/dist ./dist
 COPY backend/db ./db
+COPY backend/assets ./assets
 COPY backend/package.json ./
 RUN addgroup -S app && adduser -S app -G app && chown -R app:app /app
 USER app

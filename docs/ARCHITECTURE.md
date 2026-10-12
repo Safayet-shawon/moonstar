@@ -14,7 +14,7 @@ solar, transformer, generator and PFI).
 | **Own session auth** (not Supabase Auth) | Needs company-defined roles, per-user permission overrides, server-side revocation and audit. Sessions: random 256-bit token, SHA-256 stored, 10 h, HttpOnly cookie. |
 | **BigInt money** | `NUMERIC(14,2)` in DB; paisa/milli-unit/basis-point integers in code. Avoids float drift (tested). |
 | **PGlite fallback in dev** | Lets the whole stack run with zero setup. It refuses to run in production. |
-| **GSAP + lazy three.js** | Reveals/parallax/timeline via GSAP loaded on idle; the three.js grid loads only on ≥900 px screens with motion allowed and pauses off-screen/hidden. |
+| **Animation stack** | **GSAP + ScrollTrigger** (reveals, parallax, progress bar, magnetic buttons), **Lenis** (smooth scroll, mouse devices only), **Motion** (spring-physics 3D tilt cards, animated mobile menu), **three.js** (power-grid lattice + a 3D logo coin, loaded on idle, ≥900/1024 px only, paused off-screen). CSS handles glass surfaces, button light-sweeps and pulse rings. Everything is skipped for `prefers-reduced-motion`; GSAP/Lenis/three are separate lazy chunks. |
 
 ## Data model (backend/db/migrations/001_init.sql)
 `roles · permissions · role_permissions · users · user_permissions(overrides) · sessions · login_attempts ·
@@ -52,8 +52,9 @@ client components load on demand), API response caching (public catalogue, calc 
 cache headers, gzip on API and edge, DB indexes on every foreign key and search column, connection pooling, pagination
 on all lists, debounced search/filter/calculation inputs, loading skeletons, deferred non-critical scripts, removal of unused
 dependencies (framer-motion dropped in favour of one animation library), load balancer in `docker-compose`.
-Lighthouse (mobile emulation, local production build): Best Practices 100, SEO 100, Accessibility 98–100, Performance 83–90
-(TBT 220–390 ms, CLS 0). Real-world numbers on a CDN are better than local.
+Lighthouse (mobile emulation, local production build, after the animation layer): Best Practices 100, SEO 100, Accessibility 98–100,
+Performance ≈ 75–85 (CLS 0, TBT 250–470 ms). Richer motion costs some mobile score; real-world numbers on a CDN are better than local.
+If you need a higher score, remove `<Tilt>` wrappers or the `Motion` lenis import first.
 
 ## Future: public load estimator
 Add `POST /api/public/estimate` in `backend/src/routes/public.ts` calling the same `calculateLoad` with *public* rule

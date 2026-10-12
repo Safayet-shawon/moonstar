@@ -7,7 +7,7 @@ export function PageTitle({ title, sub, actions }: { title: string; sub?: string
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
       <div>
-        <h1 className="text-2xl font-extrabold text-navy-900 sm:text-3xl">{title}</h1>
+        <h1 className="text-2xl font-extrabold text-forest-900 sm:text-3xl">{title}</h1>
         {sub && <p className="mt-1 text-sm text-steel-600">{sub}</p>}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
@@ -32,7 +32,7 @@ export function Empty({ title, text, action }: { title: string; text?: string; a
   return (
     <div className="card grid place-items-center gap-2 px-6 py-14 text-center">
       <Inbox className="size-9 text-steel-300" />
-      <h3 className="font-bold text-navy-900">{title}</h3>
+      <h3 className="font-bold text-forest-900">{title}</h3>
       {text && <p className="max-w-sm text-sm text-steel-600">{text}</p>}
       {action}
     </div>
@@ -43,7 +43,7 @@ export function Stat({ label, value, href, tone }: { label: string; value: numbe
   const body = (
     <div className={`card p-5 transition-shadow ${href ? "hover:shadow-md" : ""}`}>
       <p className="text-xs font-bold uppercase tracking-wider text-steel-500">{label}</p>
-      <p className={`mt-2 font-display text-3xl font-extrabold ${tone === "warn" ? "text-warn" : tone === "ok" ? "text-ok" : "text-navy-900"}`}>{value}</p>
+      <p className={`mt-2 font-display text-3xl font-extrabold ${tone === "warn" ? "text-warn" : tone === "ok" ? "text-ok" : "text-forest-900"}`}>{value}</p>
     </div>
   );
   return href ? <Link href={href}>{body}</Link> : body;

@@ -23,7 +23,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<Rec
           <thead><tr><th>Project</th><th>Area / Housing</th><th>House / Road</th><th>Client</th><th>Category</th><th className="num">Quotations</th><th>Updated</th></tr></thead>
           <tbody>{d.rows.map((p) => (
             <tr key={p.id}>
-              <td><Link className="font-bold text-navy-900 hover:text-ember-600" href={`/portal/projects/${p.id}`}>{p.name}</Link></td>
+              <td><Link className="font-bold text-forest-900 hover:text-brand-600" href={`/portal/projects/${p.id}`}>{p.name}</Link></td>
               <td>{p.area_name}{p.housing_name && <p className="text-xs text-steel-500">{p.housing_name}</p>}</td>
               <td>{[p.house_no && `H ${p.house_no}`, p.road_no && `R ${p.road_no}`].filter(Boolean).join(", ") || "—"}</td>
               <td>{p.client_name ?? "—"}</td><td className="capitalize">{p.category}</td><td className="num">{p.quotation_count}</td><td><D v={p.updated_at} /></td>

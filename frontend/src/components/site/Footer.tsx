@@ -9,22 +9,22 @@ const Yt = () => (<svg viewBox="0 0 24 24" className="size-4" fill="currentColor
 
 export default function Footer() {
   return (
-    <footer className="bg-navy-950 text-steel-300">
+    <footer className="bg-forest-950 text-steel-300">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-12">
         <div className="md:col-span-4">
           <Logo light />
           <p className="mt-4 max-w-sm text-sm leading-relaxed">{COMPANY.tagline}. Supply, installation, testing, commissioning and maintenance of electrical power equipment.</p>
           <p className="mt-4 max-w-sm text-xs leading-relaxed text-steel-300">{COMPANY.approval}.</p>
           <div className="mt-5 flex gap-3">
-            <a href={COMPANY.facebook} aria-label="Facebook" rel="noopener noreferrer" target="_blank" className="grid size-9 place-items-center rounded-lg bg-white/10 hover:bg-ember-500"><Fb /></a>
-            <a href={COMPANY.youtube} aria-label="YouTube" rel="noopener noreferrer" target="_blank" className="grid size-9 place-items-center rounded-lg bg-white/10 hover:bg-ember-500"><Yt /></a>
+            <a href={COMPANY.facebook} aria-label="Facebook" rel="noopener noreferrer" target="_blank" className="grid size-9 place-items-center rounded-lg bg-white/10 hover:bg-brand-500"><Fb /></a>
+            <a href={COMPANY.youtube} aria-label="YouTube" rel="noopener noreferrer" target="_blank" className="grid size-9 place-items-center rounded-lg bg-white/10 hover:bg-brand-500"><Yt /></a>
           </div>
         </div>
         <nav aria-label="Solutions" className="md:col-span-3">
           <h2 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">Solutions</h2>
           <ul className="space-y-2 text-sm">
             {SOLUTIONS.map((s) => (
-              <li key={s.slug}><Link className="hover:text-ember-400" href={`/solutions/${s.slug}`}>{s.title}</Link></li>
+              <li key={s.slug}><Link className="hover:text-brand-400" href={`/solutions/${s.slug}`}>{s.title}</Link></li>
             ))}
           </ul>
         </nav>
@@ -32,16 +32,16 @@ export default function Footer() {
           <h2 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">Company</h2>
           <ul className="space-y-2 text-sm">
             {[["/about", "About us"], ["/projects", "Projects"], ["/certifications", "Certifications"], ["/products", "Products"], ["/resources", "Resources & FAQ"], ["/contact", "Contact"], ["/portal", "Staff portal"]].map(([h, l]) => (
-              <li key={h}><Link className="hover:text-ember-400" href={h}>{l}</Link></li>
+              <li key={h}><Link className="hover:text-brand-400" href={h}>{l}</Link></li>
             ))}
           </ul>
         </nav>
         <address className="space-y-3 text-sm not-italic md:col-span-3">
           <h2 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">Contact</h2>
-          <a href={COMPANY.phoneHref} className="flex gap-2 hover:text-ember-400"><Phone className="mt-0.5 size-4 shrink-0 text-ember-500" />{COMPANY.phone}</a>
-          <a href={`mailto:${COMPANY.email}`} className="flex gap-2 hover:text-ember-400"><Mail className="mt-0.5 size-4 shrink-0 text-ember-500" />{COMPANY.email}</a>
-          <p className="flex gap-2"><MapPin className="mt-0.5 size-4 shrink-0 text-ember-500" /><span><b className="text-white">Factory:</b> {COMPANY.factory}</span></p>
-          <p className="flex gap-2"><MapPin className="mt-0.5 size-4 shrink-0 text-ember-500" /><span><b className="text-white">Khulna office:</b> {COMPANY.khulna}</span></p>
+          <a href={COMPANY.phoneHref} className="flex gap-2 hover:text-brand-400"><Phone className="mt-0.5 size-4 shrink-0 text-brand-500" />{COMPANY.phone}</a>
+          <a href={`mailto:${COMPANY.email}`} className="flex gap-2 hover:text-brand-400"><Mail className="mt-0.5 size-4 shrink-0 text-brand-500" />{COMPANY.email}</a>
+          <p className="flex gap-2"><MapPin className="mt-0.5 size-4 shrink-0 text-brand-500" /><span><b className="text-white">Factory:</b> {COMPANY.factory}</span></p>
+          <p className="flex gap-2"><MapPin className="mt-0.5 size-4 shrink-0 text-brand-500" /><span><b className="text-white">Khulna office:</b> {COMPANY.khulna}</span></p>
         </address>
       </div>
       <div className="border-t border-white/10 py-5 text-center text-xs text-steel-300">

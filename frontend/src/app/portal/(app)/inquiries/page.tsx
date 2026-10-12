@@ -18,7 +18,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ p
           {d.rows.map((r) => (
             <article key={r.id} className="card p-4">
               <div className="flex flex-wrap items-start justify-between gap-2">
-                <div><p className="font-bold text-navy-900">{r.name}{r.company && <span className="font-normal text-steel-600"> · {r.company}</span>}</p><p className="text-sm text-steel-600"><a className="hover:text-ember-600" href={`tel:${r.phone}`}>{r.phone}</a>{r.email && <> · <a className="hover:text-ember-600" href={`mailto:${r.email}`}>{r.email}</a></>}{r.service && <> · {r.service}</>}</p></div>
+                <div><p className="font-bold text-forest-900">{r.name}{r.company && <span className="font-normal text-steel-600"> · {r.company}</span>}</p><p className="text-sm text-steel-600"><a className="hover:text-brand-600" href={`tel:${r.phone}`}>{r.phone}</a>{r.email && <> · <a className="hover:text-brand-600" href={`mailto:${r.email}`}>{r.email}</a></>}{r.service && <> · {r.service}</>}</p></div>
                 <div className="flex items-center gap-3"><time className="text-xs text-steel-500"><DT v={r.created_at} tz={tz} /></time><InquiryStatus id={r.id} status={r.status} /></div>
               </div>
               <p className="mt-2 whitespace-pre-wrap text-sm text-steel-700">{r.message}</p>
